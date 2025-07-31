@@ -1,14 +1,75 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from "react";
+import { Landing } from "../components/Landing";
+import { VoiceSurvey } from "../components/VoiceSurvey";
+import { MatchResults } from "../components/MatchResults";
+import { AdminPanel } from "../components/AdminPanel";
+import { UserProfile, RoomMatch } from "@/types/roommate";
+import { findBestMatch } from "@/utils/matchingAlgorithm";
+
+type AppState = "landing" | "survey" | "results" | "admin";
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [currentState, setCurrentState] = useState<AppState>("landing");
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [matchResult, setMatchResult] = useState<RoomMatch | null>(null);
+
+  const handleStartSurvey = () => {
+    setCurrentState("survey");
+  };
+
+  const handleSurveyComplete = (profile: UserProfile) => {
+    setUserProfile(profile);
+    const match = findBestMatch(profile);
+    setMatchResult(match);
+    setCurrentState("results");
+  };
+
+  const handleConfirmMatch = () => {
+    // Here you would typically save to database
+    console.log("Match confirmed!", { userProfile, matchResult });
+    alert("Booking confirmed! You'll receive further details via email.");
+    setCurrentState("landing");
+  };
+
+  const handleSeeOtherMatches = () => {
+    // For now, just go back to landing
+    // In a real app, this would show alternative matches
+    setCurrentState("landing");
+  };
+
+  // Secret admin access (in production, this would be a protected route)
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === 'a' && e.ctrlKey && e.shiftKey) {
+      setCurrentState("admin");
+    }
+  };
+
+  // Add event listener for admin access
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress as any);
+    return () => window.removeEventListener('keydown', handleKeyPress as any);
+  }, []);
+
+  switch (currentState) {
+    case "survey":
+      return <VoiceSurvey onComplete={handleSurveyComplete} />;
+    
+    case "results":
+      if (!matchResult) return null;
+      return (
+        <MatchResults
+          match={matchResult}
+          onConfirm={handleConfirmMatch}
+          onSeeOtherMatches={handleSeeOtherMatches}
+        />
+      );
+    
+    case "admin":
+      return <AdminPanel />;
+    
+    default:
+      return <Landing onStartSurvey={handleStartSurvey} />;
+  }
 };
 
 export default Index;
