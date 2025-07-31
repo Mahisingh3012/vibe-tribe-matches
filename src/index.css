@@ -9,9 +9,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Main gradient background - lavender to soft grey */
-    --background: linear-gradient(135deg, #D7C5E5 0%, #E5E5EA 100%);
-    --background-solid: 300 20% 88%; /* Soft lavender fallback */
+    /* Main gradient background - soft pastel comfort vibes */
+    --background: linear-gradient(135deg, #EADFEF 0%, #F6F1F5 50%, #E0EBF4 100%);
+    --background-solid: 300 20% 92%; /* Soft pastel fallback */
     --foreground: 270 15% 25%; /* Dark grey-purple for text */
 
     /* Card backgrounds with glassmorphism */
@@ -51,8 +51,8 @@ All colors MUST be HSL.
 
     /* Gradient definitions */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
-    --gradient-background: linear-gradient(135deg, #D7C5E5 0%, #E5E5EA 100%);
-    --gradient-card: linear-gradient(135deg, rgba(215, 197, 229, 0.9) 0%, rgba(229, 229, 234, 0.8) 100%);
+    --gradient-background: linear-gradient(135deg, #EADFEF 0%, #F6F1F5 50%, #E0EBF4 100%);
+    --gradient-card: linear-gradient(135deg, rgba(234, 223, 239, 0.9) 0%, rgba(246, 241, 245, 0.8) 50%, rgba(224, 235, 244, 0.8) 100%);
 
     /* Shadows and glows */
     --shadow-glow: 0 4px 20px rgba(142, 68, 173, 0.3);

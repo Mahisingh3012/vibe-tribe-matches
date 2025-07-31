@@ -67,6 +67,9 @@ export default {
 			fontFamily: {
 				'poppins': ['Poppins', 'system-ui', 'sans-serif'],
 				'inter': ['Inter', 'system-ui', 'sans-serif'],
+				'playfair': ['Playfair Display', 'serif'],
+				'raleway': ['Raleway', 'system-ui', 'sans-serif'],
+				'dm-sans': ['DM Sans', 'system-ui', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

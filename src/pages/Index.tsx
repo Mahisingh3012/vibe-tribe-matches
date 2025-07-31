@@ -1,19 +1,26 @@
 import { useState, useEffect } from "react";
 import { Landing } from "../components/Landing";
+import { AvatarSelection } from "../components/AvatarSelection";
 import { VoiceSurvey } from "../components/VoiceSurvey";
 import { MatchResults } from "../components/MatchResults";
 import { AdminPanel } from "../components/AdminPanel";
 import { UserProfile, RoomMatch } from "@/types/roommate";
 import { findBestMatch } from "@/utils/matchingAlgorithm";
 
-type AppState = "landing" | "survey" | "results" | "admin";
+type AppState = "landing" | "avatar" | "survey" | "results" | "admin";
 
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>("landing");
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [matchResult, setMatchResult] = useState<RoomMatch | null>(null);
+  const [avatarData, setAvatarData] = useState<{ type: 'preset' | 'upload', value: string } | null>(null);
 
   const handleStartSurvey = () => {
+    setCurrentState("avatar");
+  };
+
+  const handleAvatarComplete = (data: { type: 'preset' | 'upload', value: string }) => {
+    setAvatarData(data);
     setCurrentState("survey");
   };
 
@@ -51,6 +58,9 @@ const Index = () => {
   }, []);
 
   switch (currentState) {
+    case "avatar":
+      return <AvatarSelection onComplete={handleAvatarComplete} />;
+    
     case "survey":
       return <VoiceSurvey onComplete={handleSurveyComplete} />;
     

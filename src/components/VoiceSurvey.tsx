@@ -176,7 +176,7 @@ export const VoiceSurvey = ({ onComplete }: VoiceSurveyProps) => {
             {/* Voice Wave Animation */}
             <div className="mt-6">
               <VoiceWave isActive={isListening} className="justify-center mb-4" />
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm font-dm-sans text-muted-foreground">
                 {isListening ? "Listening..." : "Click to speak"}
               </p>
             </div>
@@ -198,7 +198,7 @@ export const VoiceSurvey = ({ onComplete }: VoiceSurveyProps) => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <h2 className="text-2xl font-poppins font-semibold mb-6 text-foreground">
+                  <h2 className="text-2xl font-playfair font-semibold mb-6 text-foreground">
                     {question.question}
                   </h2>
 

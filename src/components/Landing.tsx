@@ -34,7 +34,7 @@ export const Landing = ({ onStartSurvey }: LandingProps) => {
 
         {/* Main Tagline */}
         <motion.h1
-          className="text-5xl md:text-7xl font-poppins font-bold text-foreground mb-6"
+          className="text-5xl md:text-7xl font-playfair font-bold text-foreground mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -43,22 +43,12 @@ export const Landing = ({ onStartSurvey }: LandingProps) => {
         </motion.h1>
 
         <motion.p
-          className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+          className="text-xl md:text-2xl font-dm-sans text-muted-foreground mb-12 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           Smart Matches for Shared Spaces
-        </motion.p>
-
-        <motion.p
-          className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          Discover your perfect roommate through AI-powered matching. 
-          Take our quick voice survey and find someone who truly complements your lifestyle.
         </motion.p>
 
         {/* CTA Button */}
