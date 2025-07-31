@@ -62,7 +62,7 @@ const Index = () => {
       return <AvatarSelection onComplete={handleAvatarComplete} />;
     
     case "survey":
-      return <VoiceSurvey onComplete={handleSurveyComplete} />;
+      return <VoiceSurvey onComplete={handleSurveyComplete} avatarData={avatarData} />;
     
     case "results":
       if (!matchResult) return null;

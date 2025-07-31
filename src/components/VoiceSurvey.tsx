@@ -11,9 +11,10 @@ import avatarImage from "@/assets/avatar-3d.png";
 
 interface VoiceSurveyProps {
   onComplete: (profile: UserProfile) => void;
+  avatarData?: { type: 'preset' | 'upload', value: string } | null;
 }
 
-export const VoiceSurvey = ({ onComplete }: VoiceSurveyProps) => {
+export const VoiceSurvey = ({ onComplete, avatarData }: VoiceSurveyProps) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -157,9 +158,9 @@ export const VoiceSurvey = ({ onComplete }: VoiceSurveyProps) => {
               transition={{ duration: 2, repeat: isListening ? Infinity : 0 }}
             >
               <img
-                src={avatarImage}
-                alt="AI Assistant"
-                className="w-64 h-64 mx-auto rounded-3xl"
+                src={avatarData?.value || avatarImage}
+                alt="Your Avatar"
+                className="w-64 h-64 mx-auto rounded-3xl object-cover"
               />
               {isListening && (
                 <motion.div

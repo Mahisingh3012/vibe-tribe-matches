@@ -11,61 +11,76 @@ interface LandingProps {
 export const Landing = ({ onStartSurvey }: LandingProps) => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      {/* Hero Section */}
+      {/* Main Content Container with Soft Frame */}
       <motion.div
-        className="text-center max-w-4xl mx-auto"
+        className="relative max-w-4xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        {/* Crystal Illustration */}
-        <motion.div
-          className="mb-8 flex justify-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          <img 
-            src={crystalHero} 
-            alt="Mystical Crystal" 
-            className="w-32 h-32 crystal-glow"
-          />
-        </motion.div>
+        {/* Soft Glow Frame */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/30 to-secondary/20 rounded-3xl blur-xl transform scale-110 opacity-50" />
+        
+        {/* Inner Glassmorphism Container */}
+        <div className="relative bg-gradient-to-br from-card/80 via-card/60 to-background/50 backdrop-blur-xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl">
+          {/* Decorative Corner Accents */}
+          <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-primary/30 rounded-tl-3xl" />
+          <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-primary/30 rounded-tr-3xl" />
+          <div className="absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-primary/30 rounded-bl-3xl" />
+          <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-primary/30 rounded-br-3xl" />
+          
+          {/* Hero Content */}
+          <div className="text-center">
+            {/* Crystal Illustration */}
+            <motion.div
+              className="mb-8 flex justify-center"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              <img 
+                src={crystalHero} 
+                alt="Mystical Crystal" 
+                className="w-32 h-32 crystal-glow drop-shadow-2xl"
+              />
+            </motion.div>
 
-        {/* Main Tagline */}
-        <motion.h1
-          className="text-5xl md:text-7xl font-playfair font-bold text-foreground mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          Your Vibe, Your Tribe
-        </motion.h1>
+            {/* Main Tagline */}
+            <motion.h1
+              className="text-5xl md:text-7xl font-playfair font-bold text-foreground mb-6 drop-shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Your Vibe, Your Tribe
+            </motion.h1>
 
-        <motion.p
-          className="text-xl md:text-2xl font-dm-sans text-muted-foreground mb-12 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          Smart Matches for Shared Spaces
-        </motion.p>
+            <motion.p
+              className="text-xl md:text-2xl font-dm-sans text-muted-foreground mb-12 max-w-2xl mx-auto drop-shadow-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              Smart Matches for Shared Spaces
+            </motion.p>
 
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
-        >
-          <Button
-            onClick={onStartSurvey}
-            size="lg"
-            className="text-xl px-12 py-6 font-poppins font-semibold bg-primary hover:bg-primary-glow transition-smooth glow-primary"
-          >
-            <Sparkles className="w-6 h-6 mr-3" />
-            Meet Your Roomie
-          </Button>
-        </motion.div>
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 1 }}
+            >
+              <Button
+                onClick={onStartSurvey}
+                size="lg"
+                className="text-xl px-12 py-6 font-poppins font-semibold bg-primary hover:bg-primary-glow transition-smooth glow-primary shadow-xl hover:shadow-2xl hover:scale-105 transform"
+              >
+                <Sparkles className="w-6 h-6 mr-3" />
+                Meet Your Roomie
+              </Button>
+            </motion.div>
+          </div>
+        </div>
       </motion.div>
 
       {/* Features Section */}
