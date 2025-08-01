@@ -2,51 +2,39 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "./GlassCard";
-import { Upload, User, ArrowRight } from "lucide-react";
+import { User, ArrowRight } from "lucide-react";
+import avatar1 from "@/assets/avatar-1.png";
+import avatar2 from "@/assets/avatar-2.png";
+import avatar3 from "@/assets/avatar-3.png";
+import avatar4 from "@/assets/avatar-4.png";
+import avatar5 from "@/assets/avatar-5.png";
+import avatar6 from "@/assets/avatar-6.png";
 
 interface AvatarSelectionProps {
   onComplete: (avatarData: { type: 'preset' | 'upload', value: string }) => void;
 }
 
 const presetAvatars = [
-  "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face", 
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-  "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face"
+  { src: avatar1, alt: "Short brown hair avatar" },
+  { src: avatar2, alt: "Long curly purple hair avatar" },
+  { src: avatar3, alt: "Blonde hair with glasses avatar" },
+  { src: avatar4, alt: "Wavy red hair with earrings avatar" },
+  { src: avatar5, alt: "Short black hair avatar" },
+  { src: avatar6, alt: "Long braided teal hair avatar" }
 ];
 
 export const AvatarSelection = ({ onComplete }: AvatarSelectionProps) => {
   const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [selectedType, setSelectedType] = useState<'preset' | 'upload' | null>(null);
 
   const handlePresetSelect = (avatar: string) => {
     setSelectedAvatar(avatar);
-    setUploadedImage(null);
-    setSelectedType('preset');
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setUploadedImage(result);
-        setSelectedAvatar(null);
-        setSelectedType('upload');
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const handleNext = () => {
-    if (selectedType && (selectedAvatar || uploadedImage)) {
+    if (selectedAvatar) {
       onComplete({
-        type: selectedType,
-        value: selectedType === 'preset' ? selectedAvatar! : uploadedImage!
+        type: 'preset',
+        value: selectedAvatar
       });
     }
   };
@@ -54,7 +42,7 @@ export const AvatarSelection = ({ onComplete }: AvatarSelectionProps) => {
   const handleSkip = () => {
     onComplete({
       type: 'preset',
-      value: presetAvatars[0]
+      value: presetAvatars[0].src
     });
   };
 
@@ -71,34 +59,34 @@ export const AvatarSelection = ({ onComplete }: AvatarSelectionProps) => {
             Choose Your Avatar
           </h1>
           <p className="text-lg font-dm-sans text-muted-foreground max-w-2xl mx-auto">
-            Select an avatar or upload your photo to personalize your profile
+            Choose your perfect avatar to personalize your profile
           </p>
         </motion.div>
 
         <GlassCard>
           <div className="space-y-8">
-            {/* Preset Avatars */}
+            {/* Stylized 3D Avatars */}
             <div>
-              <h3 className="text-xl font-raleway font-semibold mb-6 text-center">Choose a Preset Avatar</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <h3 className="text-xl font-raleway font-semibold mb-6 text-center">Choose Your Avatar</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {presetAvatars.map((avatar, index) => (
                   <motion.button
                     key={index}
-                    onClick={() => handlePresetSelect(avatar)}
-                    className={`relative rounded-full overflow-hidden border-4 transition-all duration-300 ${
-                      selectedAvatar === avatar
-                        ? 'border-primary scale-110 shadow-lg'
+                    onClick={() => handlePresetSelect(avatar.src)}
+                    className={`relative rounded-2xl overflow-hidden border-4 transition-all duration-300 ${
+                      selectedAvatar === avatar.src
+                        ? 'border-primary scale-110 shadow-xl shadow-primary/20'
                         : 'border-border hover:border-primary/50 hover:scale-105'
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <img
-                      src={avatar}
-                      alt={`Avatar option ${index + 1}`}
-                      className="w-24 h-24 object-cover"
+                      src={avatar.src}
+                      alt={avatar.alt}
+                      className="w-28 h-28 object-cover"
                     />
-                    {selectedAvatar === avatar && (
+                    {selectedAvatar === avatar.src && (
                       <motion.div
                         className="absolute inset-0 bg-primary/20 flex items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -112,56 +100,16 @@ export const AvatarSelection = ({ onComplete }: AvatarSelectionProps) => {
                   </motion.button>
                 ))}
               </div>
-            </div>
-
-            {/* Upload Section */}
-            <div className="border-t border-border pt-8">
-              <h3 className="text-xl font-raleway font-semibold mb-6 text-center">Or Upload Your Photo</h3>
-              <div className="flex flex-col items-center space-y-4">
-                <label
-                  htmlFor="avatar-upload"
-                  className={`relative cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors duration-300 ${
-                    uploadedImage
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border hover:border-primary hover:bg-primary/5'
-                  }`}
-                >
-                  <input
-                    id="avatar-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                  />
-                  {uploadedImage ? (
-                    <div className="flex flex-col items-center space-y-2">
-                      <img
-                        src={uploadedImage}
-                        alt="Uploaded avatar"
-                        className="w-24 h-24 rounded-full object-cover border-4 border-primary"
-                      />
-                      <p className="text-sm text-muted-foreground">Photo uploaded successfully!</p>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col items-center space-y-2">
-                      <Upload className="w-8 h-8 text-muted-foreground" />
-                      <p className="text-sm text-muted-foreground">
-                        Click to upload or drag and drop
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        PNG, JPG up to 10MB
-                      </p>
-                    </div>
-                  )}
-                </label>
-              </div>
+              <p className="text-sm text-muted-foreground text-center mt-4">
+                Choose from our collection of stylized 3D avatars
+              </p>
             </div>
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
               <Button
                 onClick={handleNext}
-                disabled={!selectedType}
+                disabled={!selectedAvatar}
                 size="lg"
                 className="flex-1 bg-primary hover:bg-primary-glow transition-smooth"
               >
